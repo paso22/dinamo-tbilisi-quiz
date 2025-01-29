@@ -1,14 +1,18 @@
-function NextButton({dispatch, answer, index, numOfQuestions}) {
+import {useQuiz} from "../contexts/QuizContext";
+
+function NextButton() {
+    const {answer, index, questions, handleNextQuestion, handleFinish} = useQuiz();
+
     if (answer === null) return null;
 
-    const isLastQuestion = index === numOfQuestions - 1;
+    const isLastQuestion = index === questions.length - 1;
     if (!isLastQuestion)
-        return (<button className="btn btn-ui" onClick={() => dispatch({type: "nextQuestion"})}>
+        return (<button className="btn btn-ui" onClick={handleNextQuestion}>
             Next
         </button>);
     else
         return (
-            <button className="btn btn-ui" onClick={() => dispatch({type: "finished"})}>
+            <button className="btn btn-ui" onClick={handleFinish}>
                 Finish
             </button>
         );
